@@ -97,22 +97,21 @@ export default function App() {
   const [firebaseReady, setFirebaseReady] = useState(false);
   const [view, setView] = useState('dashboard'); // dashboard, tasks, team
 
-  // 1. Initialize Firebase Connection (Anonymous)
-  useEffect(() => {
-    const initAuth = async () => {
-      try {
-        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-           await signInWithCustomToken(auth, __initial_auth_token);
-        } else {
-           await signInAnonymously(auth);
-        }
-        setFirebaseReady(true);
-      } catch (err) {
-        console.error("Firebase connection failed", err);
-      }
-    };
-    initAuth();
-  }, []);
+// 1. Initialize Firebase Connection
+useEffect(() => {
+  const initAuth = async () => {
+    try {
+      // Establish a secure connection to the database
+      await signInAnonymously(auth); 
+      setFirebaseReady(true);
+    } catch (err) {
+      console.error("Firebase connection failed", err);
+      // Allow app to load even if auth fails (e.g. for UI testing)
+      setFirebaseReady(true); 
+    }
+  };
+  initAuth();
+}, []);
 
   // 2. Check LocalStorage for existing session
   useEffect(() => {
