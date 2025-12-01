@@ -57,10 +57,14 @@ const firebaseConfig = {
   appId: "1:595466988042:web:e1ab13d1eed6bcfc4f4df3",
   measurementId: "G-LH760519XM"
 };
-const appId = "taskflow-public"; // You can name this whatever you want
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+// Define App ID 
+const appId = "taskflow-public";
 
 // --- Utility Components ---
 
